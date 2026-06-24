@@ -74,15 +74,15 @@
       display: block;
     }
 
-    /* ===== QR POPUP - Desktop ===== */
+    /* ===== QR POPUP (Desktop) ===== */
     #qr-popup {
       position: absolute;
       left: 40px;
-      top: 62%;                    /* 20% mais abaixo */
+      top: 62%;
       transform: translateY(-50%);
       z-index: 20;
       display: block;
-      width: clamp(185px, 12.8vw, 253px);   /* 15% maior */
+      width: clamp(185px, 12.8vw, 253px);
       height: auto;
       opacity: 1;
       pointer-events: auto;
@@ -98,6 +98,33 @@
     }
     #qr-popup:hover {
       transform: translateY(-50%) scale(1.04);
+    }
+
+    /* ===== BOTÃO DOWNLOAD MATERIAL ===== */
+    #download-btn {
+      position: absolute;
+      bottom: 28px;
+      left: 28px;
+      z-index: 25;
+      padding: 11px 20px;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.8px;
+      color: #fff;
+      background: rgba(255, 255, 255, 0.13);
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      border-radius: 999px;
+      text-decoration: none;
+      backdrop-filter: blur(10px);
+      transition: all 0.2s ease;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    #download-btn:hover {
+      background: rgba(255, 255, 255, 0.22);
+      transform: translateY(-1px);
     }
 
     /* Mobile */
@@ -116,6 +143,21 @@
       }
       #qr-popup:hover {
         transform: translateX(-50%) scale(1.04);
+      }
+
+      #download-btn {
+        bottom: 22px;
+        left: 18px;
+        padding: 10px 8px;
+        font-size: 11px;
+        writing-mode: vertical-rl;
+        text-orientation: mixed;
+        transform: rotate(180deg);
+        border-radius: 999px;
+        min-height: 92px;
+      }
+      #download-btn:hover {
+        transform: rotate(180deg) translateY(-1px);
       }
     }
   </style>
@@ -140,12 +182,20 @@
          rel="noopener noreferrer">
         <img src="QR CODE POPUP.png" alt="QR Code - Matrícula" />
       </a>
+
+      <!-- BOTÃO DOWNLOAD MATERIAL -->
+      <a id="download-btn" 
+         href="https://ceabr-my.sharepoint.com/:b:/g/personal/lucas_banza_cea_com_br/IQBkypRdn-YJQa2VD_Xw97rlAUjbVLVNs3R-Ro2CL5kXbMo?e=Zd6FeZ" 
+         target="_blank" 
+         rel="noopener noreferrer">
+        DOWNLOAD MATERIAL
+      </a>
     </div>
   </div>
 
   <script>
     const BACKGROUND_DESKTOP = "bg-desktop.png";
-    const BACKGROUND_MOBILE = "BG CELULAR.jpeg";
+    const BACKGROUND_MOBILE = "BG CELULAR.jpg";
     const VIDEO_URL = "service-now.mp4";
 
     const LAYOUTS = {
