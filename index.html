@@ -10,7 +10,6 @@
       margin: 0;
       padding: 0;
     }
-
     html,
     body {
       width: 100%;
@@ -20,22 +19,20 @@
       color: #fff;
       font-family: Arial, Helvetica, sans-serif;
     }
-
     body {
       display: flex;
       align-items: center;
       justify-content: center;
       padding: 16px;
     }
-
     #app {
       width: 100%;
       max-width: 1200px;
       display: flex;
       align-items: center;
       justify-content: center;
+      position: relative;
     }
-
     #stage {
       position: relative;
       overflow: hidden;
@@ -46,7 +43,6 @@
       background-size: cover;
       box-shadow: 0 32px 80px rgba(0, 0, 0, 0.35);
     }
-
     #bg-placeholder,
     #video-placeholder {
       position: absolute;
@@ -63,11 +59,9 @@
       background: rgba(0, 0, 0, 0.28);
       pointer-events: none;
     }
-
     #video-placeholder {
       background: rgba(0, 0, 0, 0.45);
     }
-
     #video-container {
       position: absolute;
       overflow: hidden;
@@ -76,7 +70,6 @@
       justify-content: center;
       background: transparent;
     }
-
     #video-frame {
       width: 100%;
       height: 100%;
@@ -85,32 +78,31 @@
       display: block;
     }
 
+    /* ===== QR POPUP FIXO (Desktop + Mobile) ===== */
     #qr-popup {
-      position: absolute;
-      left: 0;
-      bottom: 20px;
-      top: auto;
-      z-index: 12;
+      position: fixed;
+      left: 50%;
+      bottom: 28px;
+      transform: translateX(-50%);
+      z-index: 100;
       display: block;
-      width: 256px;
+      width: 220px;
+      max-width: 55vw;
       height: auto;
-      min-width: 96px;
-      max-width: 320px;
       opacity: 1;
       pointer-events: auto;
-      transition: opacity 0.2s ease;
-      transform: none;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
+      border-radius: 16px;
+      overflow: hidden;
     }
-
     #qr-popup img {
       width: 100%;
       height: auto;
       display: block;
     }
-
-    #qr-popup.visible {
-      opacity: 1;
-      pointer-events: auto;
+    #qr-popup:hover {
+      transform: translateX(-50%) scale(1.03);
     }
 
     #device-badge {
@@ -128,19 +120,15 @@
       backdrop-filter: blur(4px);
     }
 
+    /* Mobile */
     @media (max-width: 768px) {
       body {
         padding: 10px;
       }
       #qr-popup {
-        position: fixed;
-        left: 50%;
-        bottom: 20px;
-        top: auto;
-        transform: translateX(-50%);
-        /* mobile: double size (desktop 256px * 2 = 512px), constrained to viewport */
-        width: 512px;
-        max-width: 90vw;
+        width: 260px;
+        max-width: 75vw;
+        bottom: 24px;
       }
     }
   </style>
@@ -149,7 +137,6 @@
   <div id="app">
     <div id="stage">
       <div id="bg-placeholder">Carregando imagem de fundo…</div>
-
       <div id="video-container">
         <video
           id="video-frame"
@@ -163,15 +150,18 @@
         </video>
         <div id="video-placeholder">Carregando vídeo…</div>
       </div>
-      <a
-        id="qr-popup"
-        href="https://academiadamodacea.com.br/app/cursopresencial/matricula/a8c85dda-fa08-40c8-a35c-e5f49c6f3195"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <img src="QR CODE POPUP.png" alt="QR Code Popup" />
-      </a>
     </div>
+
+    <!-- QR CODE POPUP - Agora fixo e centralizado -->
+    <a
+      id="qr-popup"
+      href="https://academiadamodacea.com.br/app/cursopresencial/matricula/a8c85dda-fa08-40c8-a35c-e5f49c6f3195"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <img src="QR CODE POPUP.png" alt="QR Code - Matrícula" />
+    </a>
+
     <div id="device-badge">Ajustando layout…</div>
   </div>
 
@@ -244,6 +234,7 @@
       const vw = Math.max(window.innerWidth - 32, 320);
       const vh = Math.max(window.innerHeight - 32, 320);
       const targetRatio = config.baseWidth / config.baseHeight;
+
       let width = vw;
       let height = Math.round(width / targetRatio);
 
