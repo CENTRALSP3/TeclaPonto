@@ -68,23 +68,24 @@
       backdrop-filter: blur(4px);
     }
 
-    /* --- LOGO (desktop: topo, 320px) --- */
+    /* --- LOGO (desktop: top left, reduzida 40%, 5px margin) --- */
     .logo-container {
       width: 100%;
-      height: 320px;
+      height: 192px;
       display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 24px;
+      justify-content: flex-start;
+      align-items: flex-start;
+      padding: 5px;
     }
 
-    /* --- TÍTULO (desktop: logo abaixo da logo) --- */
+    /* --- TÍTULO (desktop: abaixo da logo, 20% mais abaixo) --- */
     .sidebar-title-container {
       width: 100%;
       display: flex;
       justify-content: center;
       align-items: center;
       padding: 0 16px 12px;
+      margin-top: 10%;
     }
     .sidebar-title-container h1 {
       font-size: 24px;
@@ -140,12 +141,13 @@
       text-align: center;
     }
 
-    /* --- DOWNLOAD (desktop: abaixo do QR na sidebar) --- */
+    /* --- DOWNLOAD (desktop: abaixo do QR, 20% mais acima) --- */
     .download-area {
       width: 100%;
       padding: 12px 40px 20px;
       display: flex;
       justify-content: center;
+      margin-top: -10%;
     }
     .download-btn {
       width: 200px;
@@ -227,13 +229,13 @@
       }
       .canvas::before { border-radius: 0; }
 
-      .logo-container { height: 200px; padding: 16px; }
+      .logo-container { height: 140px; padding: 5px; }
       .sidebar-title-container h1 { font-size: 20px; }
-      .sidebar-title-container { padding: 0 12px 8px; }
+      .sidebar-title-container { padding: 0 12px 8px; margin-top: 6%; }
       .qr-container { min-height: 200px; }
       .qr-container img { width: 160px; height: 160px; }
       .download-btn { width: 160px; height: 56px; font-size: 12px; }
-      .download-area { padding: 8px 20px 16px; }
+      .download-area { padding: 8px 20px 16px; margin-top: -6%; }
       .video-container { padding: 16px 24px; }
     }
 
@@ -426,7 +428,7 @@
       <section class="video-container">
         <div class="video-wrapper">
           <video controls autoplay playsinline loop>
-            <source src="service-now.mp4" type="video/mp4">
+            <source src="Vídeo Curso.mp4" type="video/mp4">
             Seu navegador não suporta reprodução de vídeo.
           </video>
         </div>
