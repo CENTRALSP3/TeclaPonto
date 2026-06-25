@@ -68,36 +68,18 @@
       backdrop-filter: blur(4px);
     }
 
-    /* --- LOGO (desktop: top left, reduzida 40%, 5px margin) --- */
+    /* --- LOGO (desktop: top left, 255px largura) --- */
     .logo-container {
       width: 100%;
-      height: 192px;
       display: flex;
       justify-content: flex-start;
       align-items: flex-start;
       padding: 5px;
     }
-
-    /* --- TÍTULO (desktop: abaixo da logo, 20% mais abaixo) --- */
-    .sidebar-title-container {
-      width: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 0 16px 12px;
-      margin-top: 10%;
-    }
-    .sidebar-title-container h1 {
-      font-size: 24px;
-      font-weight: 700;
-      color: #fff0d9;
-      text-shadow:
-        -2px -2px 0 #1e5175,  2px -2px 0 #1e5175,
-        -2px  2px 0 #1e5175,   2px  2px 0 #1e5175,
-         0   -2px 0 #1e5175,   0    2px 0 #1e5175,
-        -2px  0   0 #1e5175,   2px  0   0 #1e5175;
-      text-align: center;
-      line-height: 1.2;
+    .logo-container img {
+      width: 255px;
+      height: auto;
+      display: block;
     }
 
     /* --- QR CODE --- */
@@ -229,9 +211,8 @@
       }
       .canvas::before { border-radius: 0; }
 
-      .logo-container { height: 140px; padding: 5px; }
-      .sidebar-title-container h1 { font-size: 20px; }
-      .sidebar-title-container { padding: 0 12px 8px; margin-top: 6%; }
+      .logo-container { padding: 5px; }
+      .logo-container img { width: 180px; }
       .qr-container { min-height: 200px; }
       .qr-container img { width: 160px; height: 160px; }
       .download-btn { width: 160px; height: 56px; font-size: 12px; }
@@ -287,16 +268,6 @@
         width: 260px;
         height: auto;
         max-height: 160px;
-      }
-
-      /* 2. TÍTULO — abaixo da logo */
-      .sidebar-title-container {
-        padding: 8px 16px 12px;
-        width: 100%;
-      }
-      .sidebar-title-container h1 {
-        font-size: 32px;
-        line-height: 1.15;
       }
 
       /* Esconder QR da sidebar no mobile — aparece só no bottom-actions */
@@ -373,9 +344,7 @@
 
     @media (max-width: 480px) {
       .sidebar { padding: 12px 12px 4px; }
-      .logo-container img { width: 200px; max-height: 120px; }
-      .sidebar-title-container h1 { font-size: 24px; }
-      .sidebar-title-container { padding: 4px 12px 8px; }
+      .logo-container img { width: 180px; max-height: 120px; }
       .qr-container img { width: 150px; height: 150px; }
       .content { padding: 0 8px; }
       .bottom-actions { padding: 8px 12px 16px; gap: 10px; margin-top: 8vh; }
@@ -394,12 +363,7 @@
         <img src="LOGO.png" alt="TeclaPonto">
       </div>
 
-      <!-- 2. TÍTULO (desktop: abaixo da logo na sidebar) -->
-      <div class="sidebar-title-container">
-        <h1>Bem Vindo ao treinamento</h1>
-      </div>
-
-      <!-- 3. QR CODE (desktop: na sidebar; mobile: vai pra bottom-actions) -->
+      <!-- 2. QR CODE (desktop: na sidebar; mobile: vai pra bottom-actions) -->
       <div class="qr-container">
         <a href="https://academiadamodacea.com.br/app/cursopresencial/matricula/a8c85dda-fa08-40c8-a35c-e5f49c6f3195" target="_blank" rel="noopener noreferrer">
           <img src="qrcode.png" alt="QR Code">
