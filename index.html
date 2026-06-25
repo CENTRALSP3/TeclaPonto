@@ -304,17 +304,10 @@
         line-height: 1.15;
       }
 
-      /* QR + download saem da sidebar, viram bottom-actions */
-      .qr-container {
-        min-height: auto;
-        padding: 8px 16px;
-        flex: none;
+      /* Esconder QR da sidebar no mobile — aparece só no bottom-actions */
+      .sidebar > .qr-container {
+        display: none;
       }
-      .qr-container img {
-        width: 180px;
-        height: 180px;
-      }
-      .qr-label { font-size: 11px; }
 
       /* 3. VÍDEO — destaque principal */
       .content {
@@ -343,7 +336,7 @@
 
       /* 4. BOTTOM ACTIONS — QR + download lado a lado */
       .download-area {
-        display: none; /* esconder posição original */
+        display: none; /* esconder botão da sidebar no mobile */
       }
       .bottom-actions {
         display: flex;
@@ -371,7 +364,7 @@
         max-width: 45%;
         width: auto;
         height: 80px;
-        font-size: 14px;
+        font-size: 13px;
       }
     }
 
@@ -431,6 +424,9 @@
         </a>
       </div>
 
+      <!-- Download também no final da sidebar, escondido no mobile -->
+      <div class="sidebar-download-spacer" style="flex:1; display:none;"></div>
+
     </aside>
 
     <!-- ===== MAIN CONTENT ===== -->
@@ -461,7 +457,7 @@
          href="https://ceabr-my.sharepoint.com/:b:/g/personal/lucas_banza_cea_com_br/IQBkypRdn-YJQa2VD_Xw97rlAUjbVLVNs3R-Ro2CL5kXbMo?e=Zd6FeZ"
          target="_blank" rel="noopener noreferrer">
         <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
-        DOWNLOAD
+        Download Material
       </a>
     </div>
 
