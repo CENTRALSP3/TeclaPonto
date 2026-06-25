@@ -60,6 +60,8 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+      justify-content: center;
+      gap: 0;
       padding: 0;
       position: relative;
       z-index: 5;
@@ -68,12 +70,12 @@
       backdrop-filter: blur(4px);
     }
 
-    /* --- LOGO (desktop: top left, 255px largura) --- */
+    /* --- LOGO (desktop: centralizado) --- */
     .logo-container {
       width: 100%;
       display: flex;
-      justify-content: flex-start;
-      align-items: flex-start;
+      justify-content: center;
+      align-items: center;
       padding: 5px;
     }
     .logo-container img {
@@ -85,13 +87,11 @@
     /* --- QR CODE --- */
     .qr-container {
       width: 100%;
-      flex: 1;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       padding: 8px 24px;
-      min-height: 320px;
     }
     .qr-container img {
       width: 200px;
@@ -123,13 +123,12 @@
       text-align: center;
     }
 
-    /* --- DOWNLOAD (desktop: abaixo do QR, 20% mais acima) --- */
+    /* --- DOWNLOAD (desktop: abaixo do QR) --- */
     .download-area {
       width: 100%;
       padding: 12px 40px 20px;
       display: flex;
       justify-content: center;
-      margin-top: -10%;
     }
     .download-btn {
       width: 200px;
@@ -216,7 +215,7 @@
       .qr-container { min-height: 200px; }
       .qr-container img { width: 160px; height: 160px; }
       .download-btn { width: 160px; height: 56px; font-size: 12px; }
-      .download-area { padding: 8px 20px 16px; margin-top: -6%; }
+      .download-area { padding: 8px 20px 16px; }
       .video-container { padding: 16px 24px; }
     }
 
