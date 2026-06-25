@@ -1,286 +1,341 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ServiceNow - Preview Responsivo</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TeclaPonto</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
     html, body {
       width: 100%;
       min-height: 100vh;
-      background: #000;
+      font-family: 'Inter', system-ui, sans-serif;
+      background: #0a0a0f;
       color: #fff;
-      font-family: Arial, Helvetica, sans-serif;
-    }
-    body {
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 16px;
     }
-    #app {
-      width: 100%;
-      max-width: 1200px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-    }
-    #stage {
-      position: relative;
+
+    /* ===== CANVAS 1920×1080 com margem ===== */
+    .canvas {
+      width: 1920px;
+      max-width: calc(100vw - 40px);
+      height: 1080px;
+      max-height: calc(100vh - 40px);
+      display: grid;
+      grid-template-columns: 400px 1fr;
+      grid-template-rows: 120px 1fr;
+      gap: 0;
+      background:
+        /* subtle noise texture overlay */
+        repeating-conic-gradient(rgba(255,255,255,0.008) 0% 25%, transparent 0% 50%)
+          0 0 / 4px 4px,
+        /* main gradient — deep dark with warm brown/amber tones */
+        linear-gradient(160deg, #1a1a2e 0%, #16213e 35%, #1a1a2e 65%, #0f0f1a 100%);
+      border-radius: 20px;
       overflow: hidden;
-      border-radius: 24px;
-      background-color: #111;
-      background-repeat: no-repeat;
-      background-position: center center;
-      background-size: cover;
-      box-shadow: 0 32px 80px rgba(0, 0, 0, 0.35);
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,0.05),
+        0 32px 80px rgba(0,0,0,0.6);
+      position: relative;
     }
-    #bg-placeholder, #video-placeholder {
+
+    /* Extra noise layer */
+    .canvas::after {
+      content: '';
       position: absolute;
       inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 18px;
-      color: rgba(255, 255, 255, 0.92);
-      font-size: 20px;
-      font-weight: 700;
-      background: rgba(0, 0, 0, 0.28);
+      background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
       pointer-events: none;
+      z-index: 10;
+      border-radius: 20px;
     }
-    #video-placeholder {
-      background: rgba(0, 0, 0, 0.45);
-    }
-    #video-container {
-      position: absolute;
-      overflow: hidden;
+
+    /* ===== SIDEBAR — 400px esquerda ===== */
+    .sidebar {
+      grid-column: 1 / 2;
+      grid-row: 1 / 3;
       display: flex;
+      flex-direction: column;
       align-items: center;
-      justify-content: center;
-      background: transparent;
+      padding: 0;
+      position: relative;
+      z-index: 5;
+      border-right: 1px solid rgba(255,255,255,0.06);
     }
-    #video-frame {
+
+    /* --- LOGO (vermelho) — topo, 380×380 --- */
+    .logo-container {
+      width: 100%;
+      height: 380px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+    .logo-container img {
       width: 100%;
       height: 100%;
-      object-fit: cover;
-      border: 0;
+      object-fit: contain;
       display: block;
     }
 
-    /* ===== QR POPUP (Desktop) ===== */
-    #qr-popup {
-      position: absolute;
-      left: 40px;
-      top: 62%;
-      transform: translateY(-50%);
-      z-index: 20;
-      display: block;
-      width: clamp(185px, 12.8vw, 253px);
-      height: auto;
-      opacity: 1;
-      pointer-events: auto;
-      transition: opacity 0.2s ease, transform 0.2s ease;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-      border-radius: 14px;
-      overflow: hidden;
-    }
-    #qr-popup img {
+    /* --- QR CODE (branco) --- */
+    .qr-container {
       width: 100%;
-      height: auto;
-      display: block;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 10px 40px;
+      min-height: 420px;
     }
-    #qr-popup:hover {
-      transform: translateY(-50%) scale(1.04);
+    .qr-container img {
+      width: 250px;
+      height: 250px;
+      display: block;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+    }
+    .qr-label {
+      margin-top: 10px;
+      font-size: 11px;
+      color: rgba(255,255,255,0.4);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      text-align: center;
     }
 
-    /* ===== BOTÃO DOWNLOAD MATERIAL - Preto + Calibri Bold ===== */
-    #download-btn {
-      position: absolute;
-      bottom: 28px;
-      left: 28px;
-      z-index: 25;
-      padding: 11px 20px;
-      font-family: Calibri, "Calibri Bold", Arial, Helvetica, sans-serif;
+    /* --- DOWNLOAD (verde claro) --- */
+    .download-area {
+      width: 100%;
+      padding: 20px 60px 30px;
+      display: flex;
+      justify-content: center;
+    }
+    .download-btn {
+      width: 280px;
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+      color: #fff;
+      font-family: 'Inter', sans-serif;
       font-weight: 700;
-      font-size: 13px;
-      letter-spacing: 0.8px;
-      color: #000;                    /* ← Cor preta */
-      background: rgba(255, 255, 255, 0.13);
-      border: 1px solid rgba(255, 255, 255, 0.28);
-      border-radius: 999px;
+      font-size: 16px;
+      letter-spacing: 1px;
+      border: none;
+      border-radius: 12px;
       text-decoration: none;
-      backdrop-filter: blur(10px);
-      transition: all 0.2s ease;
-      white-space: nowrap;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      box-shadow: 0 4px 16px rgba(46, 204, 113, 0.3);
+    }
+    .download-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(46, 204, 113, 0.45);
+    }
+    .download-btn svg {
+      width: 24px;
+      height: 24px;
+      fill: currentColor;
+    }
+
+    /* ===== MAIN CONTENT ===== */
+    .content {
+      grid-column: 2 / 3;
+      grid-row: 1 / 3;
+      display: grid;
+      grid-template-rows: 120px 1fr;
+      position: relative;
+      z-index: 5;
+    }
+
+    /* --- TÍTULO (azul) --- */
+    .title-container {
+      display: flex;
+      align-items: center;
+      padding: 0 40px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .title-container h1 {
+      font-size: 42px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: #fff;
+    }
+    .title-container h1 span {
+      color: #f39c12;
+    }
+
+    /* --- VÍDEO (amarelo) --- */
+    .video-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 30px 40px;
+    }
+    .video-wrapper {
+      width: 100%;
+      height: 100%;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #000;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.5);
       display: flex;
       align-items: center;
       justify-content: center;
     }
-    #download-btn:hover {
-      background: rgba(255, 255, 255, 0.22);
-      transform: translateY(-1px);
+    .video-wrapper video {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
     }
 
-    /* Mobile */
+    /* ===== RESPONSIVO ===== */
+    @media (max-width: 1024px) {
+      .canvas {
+        grid-template-columns: 300px 1fr;
+        grid-template-rows: 100px 1fr;
+        max-width: 100vw;
+        max-height: none;
+        height: auto;
+        min-height: 100vh;
+        border-radius: 0;
+      }
+      .canvas::after { border-radius: 0; }
+
+      .logo-container { height: 280px; }
+      .qr-container { min-height: 300px; }
+      .qr-container img { width: 200px; height: 200px; }
+      .download-btn { width: 240px; height: 64px; font-size: 14px; }
+      .download-area { padding: 20px 30px 24px; }
+      .title-container h1 { font-size: 32px; }
+    }
+
     @media (max-width: 768px) {
-      body {
-        padding: 10px;
+      body { align-items: flex-start; }
+      .canvas {
+        display: flex;
+        flex-direction: column;
+        max-width: 100vw;
+        min-height: 100vh;
+        height: auto;
+        border-radius: 0;
+        box-shadow: none;
       }
-      #qr-popup {
-        position: fixed;
-        left: 50%;
-        top: auto;
-        bottom: 24px;
-        transform: translateX(-50%);
-        width: clamp(180px, 22vw, 280px);
-        z-index: 100;
-      }
-      #qr-popup:hover {
-        transform: translateX(-50%) scale(1.04);
+      .canvas::after { border-radius: 0; }
+
+      .sidebar {
+        border-right: none;
+        border-bottom: 1px solid rgba(255,255,255,0.06);
+        padding: 16px;
+        gap: 12px;
       }
 
-      #download-btn {
-        bottom: 22px;
-        left: 18px;
-        padding: 10px 8px;
-        font-size: 11px;
-        writing-mode: vertical-rl;
-        text-orientation: mixed;
-        transform: rotate(180deg);
-        border-radius: 999px;
-        min-height: 92px;
+      .logo-container {
+        height: 180px;
+        padding: 10px;
       }
-      #download-btn:hover {
-        transform: rotate(180deg) translateY(-1px);
+
+      .qr-container {
+        min-height: auto;
+        padding: 10px 20px;
       }
+      .qr-container img { width: 180px; height: 180px; }
+
+      .download-area {
+        padding: 12px 20px 20px;
+      }
+      .download-btn {
+        width: 100%;
+        max-width: 320px;
+        height: 60px;
+        font-size: 14px;
+      }
+
+      .content {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+      }
+
+      .title-container {
+        padding: 16px 20px;
+        min-height: 60px;
+      }
+      .title-container h1 { font-size: 24px; }
+
+      .video-container {
+        padding: 12px;
+        flex: 1;
+        min-height: 300px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .logo-container { height: 140px; }
+      .qr-container img { width: 150px; height: 150px; }
+      .download-btn { height: 52px; font-size: 13px; }
+      .title-container h1 { font-size: 20px; }
+      .video-container { min-height: 220px; padding: 8px; }
     }
   </style>
 </head>
 <body>
-  <div id="app">
-    <div id="stage">
-      <div id="bg-placeholder">Carregando imagem de fundo…</div>
-      
-      <div id="video-container">
-        <video id="video-frame" controls autoplay playsinline loop>
-          <source src="service-now.mp4" type="video/mp4" />
-          Seu navegador não suporta reprodução de vídeo.
-        </video>
-        <div id="video-placeholder">Carregando vídeo…</div>
+  <div class="canvas">
+
+    <!-- SIDEBAR — 400px -->
+    <aside class="sidebar">
+
+      <div class="logo-container">
+        <img src="logo-site.png" alt="TeclaPonto">
       </div>
 
-      <!-- QR CODE POPUP -->
-      <a id="qr-popup" 
-         href="https://academiadamodacea.com.br/app/cursopresencial/matricula/a8c85dda-fa08-40c8-a35c-e5f49c6f3195" 
-         target="_blank" 
-         rel="noopener noreferrer">
-        <img src="QR CODE POPUP.png" alt="QR Code - Matrícula" />
-      </a>
+      <div class="qr-container">
+        <a href="https://academiadamodacea.com.br/app/cursopresencial/matricula/a8c85dda-fa08-40c8-a35c-e5f49c6f3195" target="_blank" rel="noopener noreferrer">
+          <img src="qrcode.png" alt="QR Code">
+        </a>
+        <div class="qr-label">Acesse o curso</div>
+      </div>
 
-      <!-- BOTÃO DOWNLOAD MATERIAL -->
-      <a id="download-btn" 
-         href="https://ceabr-my.sharepoint.com/:b:/g/personal/lucas_banza_cea_com_br/IQBkypRdn-YJQa2VD_Xw97rlAUjbVLVNs3R-Ro2CL5kXbMo?e=Zd6FeZ" 
-         target="_blank" 
-         rel="noopener noreferrer">
-        DOWNLOAD MATERIAL
-      </a>
-    </div>
+      <div class="download-area">
+        <a class="download-btn"
+           href="https://ceabr-my.sharepoint.com/:b:/g/personal/lucas_banza_cea_com_br/IQBkypRdn-YJQa2VD_Xw97rlAUjbVLVNs3R-Ro2CL5kXbMo?e=Zd6FeZ"
+           target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+          DOWNLOAD
+        </a>
+      </div>
+
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="content">
+
+      <header class="title-container">
+        <h1>TECLA<span>PONTO</span></h1>
+      </header>
+
+      <section class="video-container">
+        <div class="video-wrapper">
+          <video controls autoplay playsinline loop>
+            <source src="service-now.mp4" type="video/mp4">
+            Seu navegador não suporta reprodução de vídeo.
+          </video>
+        </div>
+      </section>
+
+    </main>
+
   </div>
-
-  <script>
-    const BACKGROUND_DESKTOP = "bg-desktop.png";
-    const BACKGROUND_MOBILE = "BG CELULAR.jpg";
-    const VIDEO_URL = "service-now.mp4";
-
-    const LAYOUTS = {
-      desktop: {
-        baseWidth: 1920,
-        baseHeight: 1080,
-        video: { x: 466.9, y: 235.8, width: 1400, height: 787.5 },
-      },
-      mobile: {
-        baseWidth: 1080,
-        baseHeight: 1920,
-        video: { x: 0, y: 471.2, width: 1080, height: 607.5 },
-      },
-    };
-
-    const stage = document.getElementById("stage");
-    const videoContainer = document.getElementById("video-container");
-    const videoFrame = document.getElementById("video-frame");
-    const bgPlaceholder = document.getElementById("bg-placeholder");
-    const videoPlaceholder = document.getElementById("video-placeholder");
-
-    function detectMode() {
-      const isSmall = window.innerWidth <= 768;
-      const isMobileUA = /Android|iPhone|iPad|iPod|webOS|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-      return isSmall || isMobileUA ? "mobile" : "desktop";
-    }
-
-    function applyBackground(mode) {
-      const image = mode === "mobile" ? BACKGROUND_MOBILE : BACKGROUND_DESKTOP;
-      stage.style.backgroundImage = `url('${encodeURI(image)}')`;
-      bgPlaceholder.style.display = "none";
-    }
-
-    function applyVideo() {
-      const source = videoFrame.querySelector("source");
-      if (source && VIDEO_URL) {
-        source.src = VIDEO_URL;
-        videoFrame.load();
-        videoFrame.muted = false;
-        videoFrame.style.display = "block";
-        videoPlaceholder.style.display = "none";
-      } else {
-        videoFrame.style.display = "none";
-        videoPlaceholder.textContent = "Vídeo não disponível";
-      }
-    }
-
-    function resizeStage() {
-      const mode = detectMode();
-      const config = LAYOUTS[mode];
-      const vw = Math.max(window.innerWidth - 32, 320);
-      const vh = Math.max(window.innerHeight - 32, 320);
-      const targetRatio = config.baseWidth / config.baseHeight;
-
-      let width = vw;
-      let height = Math.round(width / targetRatio);
-      if (height > vh) {
-        height = vh;
-        width = Math.round(height * targetRatio);
-      }
-
-      stage.style.width = `${width}px`;
-      stage.style.height = `${height}px`;
-
-      const left = (config.video.x / config.baseWidth) * 100;
-      const top = (config.video.y / config.baseHeight) * 100;
-      const widthPct = (config.video.width / config.baseWidth) * 100;
-      const heightPct = (config.video.height / config.baseHeight) * 100;
-
-      videoContainer.style.left = `${left}%`;
-      videoContainer.style.top = `${top}%`;
-      videoContainer.style.width = `${widthPct}%`;
-      videoContainer.style.height = `${heightPct}%`;
-    }
-
-    function init() {
-      applyBackground(detectMode());
-      applyVideo();
-      resizeStage();
-    }
-
-    window.addEventListener("resize", resizeStage);
-    window.addEventListener("orientationchange", resizeStage);
-    window.addEventListener("load", init);
-  </script>
 </body>
 </html>
