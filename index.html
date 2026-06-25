@@ -13,49 +13,45 @@
       width: 100%;
       min-height: 100vh;
       font-family: 'Inter', system-ui, sans-serif;
-      background: #0a0a0f;
-      color: #fff;
+      background: #f2eded;
+      color: #1a1a1a;
       display: flex;
       align-items: center;
       justify-content: center;
     }
 
-    /* ===== CANVAS 1920×1080 com margem ===== */
+    /* ===== CANVAS 1920×1080 ===== */
     .canvas {
       width: 1920px;
       max-width: calc(100vw - 40px);
       height: 1080px;
       max-height: calc(100vh - 40px);
       display: grid;
-      grid-template-columns: 400px 1fr;
+      grid-template-columns: 320px 1fr;
       grid-template-rows: 120px 1fr;
       gap: 0;
-      background:
-        /* subtle noise texture overlay */
-        repeating-conic-gradient(rgba(255,255,255,0.008) 0% 25%, transparent 0% 50%)
-          0 0 / 4px 4px,
-        /* main gradient — deep dark with warm brown/amber tones */
-        linear-gradient(160deg, #1a1a2e 0%, #16213e 35%, #1a1a2e 65%, #0f0f1a 100%);
+      background: #f2eded;
       border-radius: 20px;
       overflow: hidden;
       box-shadow:
-        0 0 0 1px rgba(255,255,255,0.05),
-        0 32px 80px rgba(0,0,0,0.6);
+        0 0 0 1px rgba(0,0,0,0.06),
+        0 32px 80px rgba(0,0,0,0.15);
       position: relative;
     }
 
-    /* Extra noise layer */
-    .canvas::after {
+    /* BG image overlay — full canvas */
+    .canvas::before {
       content: '';
       position: absolute;
       inset: 0;
-      background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+      background: url('bg-textura.png') center/cover no-repeat;
+      opacity: 0.35;
       pointer-events: none;
-      z-index: 10;
-      border-radius: 20px;
+      z-index: 1;
+      mix-blend-mode: multiply;
     }
 
-    /* ===== SIDEBAR — 400px esquerda ===== */
+    /* ===== SIDEBAR — 320px (reduzida 20%) ===== */
     .sidebar {
       grid-column: 1 / 2;
       grid-row: 1 / 3;
@@ -65,10 +61,12 @@
       padding: 0;
       position: relative;
       z-index: 5;
-      border-right: 1px solid rgba(255,255,255,0.06);
+      border-right: 1px solid rgba(0,0,0,0.06);
+      background: rgba(255,255,255,0.5);
+      backdrop-filter: blur(4px);
     }
 
-    /* --- LOGO (vermelho) — topo, 380×380 --- */
+    /* --- LOGO substituída por LOGO.png --- */
     .logo-container {
       width: 100%;
       height: 380px;
@@ -84,7 +82,7 @@
       display: block;
     }
 
-    /* --- QR CODE (branco) --- */
+    /* --- QR CODE --- */
     .qr-container {
       width: 100%;
       flex: 1;
@@ -92,7 +90,7 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      padding: 10px 40px;
+      padding: 10px 30px;
       min-height: 420px;
     }
     .qr-container img {
@@ -100,26 +98,26 @@
       height: 250px;
       display: block;
       border-radius: 12px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
     }
     .qr-label {
       margin-top: 10px;
       font-size: 11px;
-      color: rgba(255,255,255,0.4);
+      color: rgba(0,0,0,0.4);
       letter-spacing: 1px;
       text-transform: uppercase;
       text-align: center;
     }
 
-    /* --- DOWNLOAD (verde claro) --- */
+    /* --- DOWNLOAD --- */
     .download-area {
       width: 100%;
-      padding: 20px 60px 30px;
+      padding: 20px 40px 30px;
       display: flex;
       justify-content: center;
     }
     .download-btn {
-      width: 280px;
+      width: 240px;
       height: 80px;
       display: flex;
       align-items: center;
@@ -158,24 +156,21 @@
       z-index: 5;
     }
 
-    /* --- TÍTULO (azul) --- */
+    /* --- TÍTULO substituído por imagem --- */
     .title-container {
       display: flex;
       align-items: center;
       padding: 0 40px;
-      border-bottom: 1px solid rgba(255,255,255,0.06);
+      border-bottom: 1px solid rgba(0,0,0,0.06);
     }
-    .title-container h1 {
-      font-size: 42px;
-      font-weight: 800;
-      letter-spacing: -0.5px;
-      color: #fff;
-    }
-    .title-container h1 span {
-      color: #f39c12;
+    .title-container img {
+      height: 70px;
+      width: auto;
+      object-fit: contain;
+      display: block;
     }
 
-    /* --- VÍDEO (amarelo) --- */
+    /* --- VÍDEO --- */
     .video-container {
       display: flex;
       align-items: center;
@@ -188,7 +183,7 @@
       border-radius: 12px;
       overflow: hidden;
       background: #000;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.2);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -201,9 +196,9 @@
     }
 
     /* ===== RESPONSIVO ===== */
-    @media (max-width: 1024px) {
+    @media (max-width: 1100px) {
       .canvas {
-        grid-template-columns: 300px 1fr;
+        grid-template-columns: 260px 1fr;
         grid-template-rows: 100px 1fr;
         max-width: 100vw;
         max-height: none;
@@ -211,17 +206,18 @@
         min-height: 100vh;
         border-radius: 0;
       }
-      .canvas::after { border-radius: 0; }
+      .canvas::before { border-radius: 0; }
 
-      .logo-container { height: 280px; }
-      .qr-container { min-height: 300px; }
+      .logo-container { height: 260px; }
+      .qr-container { min-height: 280px; }
       .qr-container img { width: 200px; height: 200px; }
-      .download-btn { width: 240px; height: 64px; font-size: 14px; }
-      .download-area { padding: 20px 30px 24px; }
-      .title-container h1 { font-size: 32px; }
+      .download-btn { width: 200px; height: 64px; font-size: 14px; }
+      .download-area { padding: 20px 20px 24px; }
+      .title-container img { height: 50px; }
     }
 
     @media (max-width: 768px) {
+      html, body { background: #f2eded; }
       body { align-items: flex-start; }
       .canvas {
         display: flex;
@@ -232,17 +228,18 @@
         border-radius: 0;
         box-shadow: none;
       }
-      .canvas::after { border-radius: 0; }
+      .canvas::before { border-radius: 0; }
 
       .sidebar {
         border-right: none;
-        border-bottom: 1px solid rgba(255,255,255,0.06);
+        border-bottom: 1px solid rgba(0,0,0,0.06);
         padding: 16px;
         gap: 12px;
+        background: rgba(255,255,255,0.6);
       }
 
       .logo-container {
-        height: 180px;
+        height: 160px;
         padding: 10px;
       }
 
@@ -272,7 +269,9 @@
         padding: 16px 20px;
         min-height: 60px;
       }
-      .title-container h1 { font-size: 24px; }
+      .title-container img {
+        height: 40px;
+      }
 
       .video-container {
         padding: 12px;
@@ -282,10 +281,10 @@
     }
 
     @media (max-width: 480px) {
-      .logo-container { height: 140px; }
-      .qr-container img { width: 150px; height: 150px; }
+      .logo-container { height: 120px; }
+      .qr-container img { width: 140px; height: 140px; }
       .download-btn { height: 52px; font-size: 13px; }
-      .title-container h1 { font-size: 20px; }
+      .title-container img { height: 32px; }
       .video-container { min-height: 220px; padding: 8px; }
     }
   </style>
@@ -293,11 +292,11 @@
 <body>
   <div class="canvas">
 
-    <!-- SIDEBAR — 400px -->
+    <!-- SIDEBAR — 320px -->
     <aside class="sidebar">
 
       <div class="logo-container">
-        <img src="logo-site.png" alt="TeclaPonto">
+        <img src="LOGO.png" alt="TeclaPonto">
       </div>
 
       <div class="qr-container">
@@ -322,7 +321,7 @@
     <main class="content">
 
       <header class="title-container">
-        <h1>TECLA<span>PONTO</span></h1>
+        <img src="TITULO.png" alt="TeclaPonto">
       </header>
 
       <section class="video-container">
