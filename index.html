@@ -102,8 +102,22 @@
     }
     .qr-label {
       margin-top: 10px;
-      font-size: 11px;
-      color: rgba(0,0,0,0.4);
+      font-size: 12px;
+      color: #1e5175;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      text-align: center;
+      line-height: 1.4;
+    }
+    .qr-label strong {
+      color: #d4af37;
+      font-weight: 800;
+    }
+    .qr-alert {
+      margin-top: 2px;
+      font-size: 10px;
+      color: #e74c3c;
+      font-weight: 700;
       letter-spacing: 1px;
       text-transform: uppercase;
       text-align: center;
@@ -156,26 +170,38 @@
       z-index: 5;
     }
 
-    /* --- TÍTULO substituído por imagem --- */
+    /* --- TÍTULO texto centralizado --- */
     .title-container {
       display: flex;
       align-items: center;
+      justify-content: center;
       padding: 0 40px;
       border-bottom: 1px solid rgba(0,0,0,0.06);
     }
-    .title-container img {
-      height: 70px;
-      width: auto;
-      object-fit: contain;
-      display: block;
+    .title-container h1 {
+      font-size: 42px;
+      font-weight: 700;
+      color: #fff0d9;
+      text-shadow:
+        -2px -2px 0 #1e5175,
+         2px -2px 0 #1e5175,
+        -2px  2px 0 #1e5175,
+         2px  2px 0 #1e5175,
+         0   -2px 0 #1e5175,
+         0    2px 0 #1e5175,
+        -2px  0   0 #1e5175,
+         2px  0   0 #1e5175;
+      letter-spacing: -0.5px;
+      text-align: center;
     }
 
-    /* --- VÍDEO --- */
+    /* --- VÍDEO — 15% acima --- */
     .video-container {
       display: flex;
       align-items: center;
       justify-content: center;
       padding: 30px 40px;
+      transform: translateY(-15%);
     }
     .video-wrapper {
       width: 100%;
@@ -213,7 +239,7 @@
       .qr-container img { width: 200px; height: 200px; }
       .download-btn { width: 200px; height: 64px; font-size: 14px; }
       .download-area { padding: 20px 20px 24px; }
-      .title-container img { height: 50px; }
+      .title-container h1 { font-size: 28px; }
     }
 
     @media (max-width: 768px) {
@@ -265,13 +291,8 @@
         flex: 1;
       }
 
-      .title-container {
-        padding: 16px 20px;
-        min-height: 60px;
-      }
-      .title-container img {
-        height: 40px;
-      }
+      .title-container { padding: 16px 20px; min-height: 60px; }
+      .title-container h1 { font-size: 22px; }
 
       .video-container {
         padding: 12px;
@@ -284,7 +305,7 @@
       .logo-container { height: 120px; }
       .qr-container img { width: 140px; height: 140px; }
       .download-btn { height: 52px; font-size: 13px; }
-      .title-container img { height: 32px; }
+      .title-container h1 { font-size: 18px; }
       .video-container { min-height: 220px; padding: 8px; }
     }
   </style>
@@ -303,7 +324,10 @@
         <a href="https://academiadamodacea.com.br/app/cursopresencial/matricula/a8c85dda-fa08-40c8-a35c-e5f49c6f3195" target="_blank" rel="noopener noreferrer">
           <img src="qrcode.png" alt="QR Code">
         </a>
-        <div class="qr-label">Acesse o curso</div>
+        <div class="qr-label">
+          Registre sua presença <strong>LENDO</strong> ou <strong>CLICANDO</strong> no QR CODE
+        </div>
+        <div class="qr-alert">Obrigatório</div>
       </div>
 
       <div class="download-area">
@@ -321,7 +345,7 @@
     <main class="content">
 
       <header class="title-container">
-        <img src="TITULO.png" alt="TeclaPonto">
+        <h1>Bem Vindo ao treinamento</h1>
       </header>
 
       <section class="video-container">
