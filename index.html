@@ -60,6 +60,8 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+      justify-content: center;
+      gap: 0;
       padding: 0;
       position: relative;
       z-index: 5;
@@ -68,16 +70,16 @@
       backdrop-filter: blur(4px);
     }
 
-    /* --- LOGO (desktop: top left, 255px largura) --- */
+    /* --- LOGO (desktop: topo com 10px de espaçamento) --- */
     .logo-container {
       width: 100%;
       display: flex;
-      justify-content: flex-start;
+      justify-content: center;
       align-items: flex-start;
-      padding: 5px;
+      padding-top: 10px;
     }
     .logo-container img {
-      width: 255px;
+      width: 306px;
       height: auto;
       display: block;
     }
@@ -85,13 +87,11 @@
     /* --- QR CODE --- */
     .qr-container {
       width: 100%;
-      flex: 1;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       padding: 8px 24px;
-      min-height: 320px;
     }
     .qr-container img {
       width: 200px;
@@ -123,13 +123,12 @@
       text-align: center;
     }
 
-    /* --- DOWNLOAD (desktop: abaixo do QR, 20% mais acima) --- */
+    /* --- DOWNLOAD (desktop: abaixo do QR) --- */
     .download-area {
       width: 100%;
       padding: 12px 40px 20px;
       display: flex;
       justify-content: center;
-      margin-top: -10%;
     }
     .download-btn {
       width: 200px;
@@ -213,10 +212,9 @@
 
       .logo-container { padding: 5px; }
       .logo-container img { width: 180px; }
-      .qr-container { min-height: 200px; }
       .qr-container img { width: 160px; height: 160px; }
       .download-btn { width: 160px; height: 56px; font-size: 12px; }
-      .download-area { padding: 8px 20px 16px; margin-top: -6%; }
+      .download-area { padding: 8px 20px 16px; }
       .video-container { padding: 16px 24px; }
     }
 
@@ -365,7 +363,7 @@
 
       <!-- 2. QR CODE (desktop: na sidebar; mobile: vai pra bottom-actions) -->
       <div class="qr-container">
-        <a href="https://academiadamodacea.com.br/app/cursopresencial/matricula/a8c85dda-fa08-40c8-a35c-e5f49c6f3195" target="_blank" rel="noopener noreferrer">
+        <a href="https://academiadamodacea.com.br/app/cursopresencial/matricula/fd5c144f-6633-49eb-8ee4-1f717ad8d736" target="_blank" rel="noopener noreferrer">
           <img src="qrcode.png" alt="QR Code">
         </a>
         <div class="qr-label">
@@ -402,7 +400,7 @@
     <!-- ===== BOTTOM ACTIONS (mobile ONLY: QR + download lado a lado) ===== -->
     <div class="bottom-actions">
       <div class="qr-container">
-        <a href="https://academiadamodacea.com.br/app/cursopresencial/matricula/a8c85dda-fa08-40c8-a35c-e5f49c6f3195" target="_blank" rel="noopener noreferrer">
+        <a href="https://academiadamodacea.com.br/app/cursopresencial/matricula/fd5c144f-6633-49eb-8ee4-1f717ad8d736" target="_blank" rel="noopener noreferrer">
           <img src="qrcode.png" alt="QR Code">
         </a>
         <div class="qr-label">
